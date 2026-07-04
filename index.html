@@ -22,16 +22,10 @@ padding:20px;
 border-radius:20px;
 backdrop-filter:blur(10px);
 text-align:center;
-width:320px;
-animation:fade 0.5s ease;
+width:340px;
 }
 
-@keyframes fade{
-from{opacity:0; transform:translateY(10px);}
-to{opacity:1; transform:translateY(0);}
-}
-
-input,button{
+input,button,textarea{
 width:100%;
 padding:10px;
 margin-top:8px;
@@ -46,25 +40,22 @@ color:white;
 cursor:pointer;
 }
 
-button:hover{
-background:#2f8cff;
-}
+button:hover{background:#2f8cff;}
 
 #main{display:none;flex-direction:column;gap:10px;}
 
 #content{
 margin-top:10px;
-background:rgba(0,0,0,0.2);
+background:rgba(0,0,0,0.25);
 padding:10px;
 border-radius:10px;
-min-height:120px;
-font-size:14px;
+min-height:150px;
 }
 
-img,video{
+img,video,audio{
 width:100%;
+margin-top:10px;
 border-radius:10px;
-margin-top:5px;
 }
 </style>
 
@@ -75,8 +66,7 @@ margin-top:5px;
 <!-- LOGIN -->
 <div id="login" class="card">
 <h2>Our Memories ❤️</h2>
-<input id="user" placeholder="username">
-<input type="password" id="pass" placeholder="password">
+<input type="password" id="pass" placeholder="Enter password">
 <button onclick="login()">Enter</button>
 </div>
 
@@ -97,25 +87,44 @@ margin-top:5px;
 <script>
 
 function login(){
-let u = document.getElementById("user").value;
 let p = document.getElementById("pass").value;
 
-if((u==="me" && p==="pishi") || (u==="friend" && p==="1234")){
+if(p === "My pishi"){
 document.getElementById("login").style.display="none";
 document.getElementById("main").style.display="flex";
 }else{
-alert("Wrong login");
+alert("Wrong password");
 }
 }
 
+/* -------- STORAGE -------- */
+function saveLetter(){
+let text = document.getElementById("letterText").value;
+localStorage.setItem("letter", text);
+alert("Saved ❤️");
+}
+
+function loadLetter(){
+return localStorage.getItem("letter") || "";
+}
+
+/* -------- SECTIONS -------- */
 function openSection(name){
 let c = document.getElementById("content");
 
 if(name==="memories"){
 c.innerHTML=`
 <h4>📷 Memories</h4>
-<img src="https://picsum.photos/300/200">
+
+<input type="file" accept="image/*" onchange="previewImage(event)">
+<div id="imgBox"></div>
 `;
+
+let saved = localStorage.getItem("img");
+if(saved){
+document.getElementById("imgBox").innerHTML =
+`<img src="${saved}">`;
+}
 }
 
 if(name==="videos"){
@@ -139,14 +148,31 @@ c.innerHTML=`
 if(name==="letters"){
 c.innerHTML=`
 <h4>💌 Letters</h4>
-<p>This is our private space to write messages ❤️</p>
-<textarea style="width:100%;height:80px;border-radius:10px;"></textarea>
+
+<textarea id="letterText" placeholder="Write your message..."></textarea>
+<button onclick="saveLetter()">Save</button>
+
+<p style="margin-top:10px;">Saved message:</p>
+<div>${loadLetter()}</div>
 `;
 }
+}
 
+/* -------- IMAGE UPLOAD -------- */
+function previewImage(event){
+let file = event.target.files[0];
+let reader = new FileReader();
+
+reader.onload = function(){
+localStorage.setItem("img", reader.result);
+document.getElementById("imgBox").innerHTML =
+`<img src="${reader.result}">`;
+}
+
+reader.readAsDataURL(file);
 }
 
 </script>
 
 </body>
-  </html>
+</html>
