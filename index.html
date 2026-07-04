@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Our Memories</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:linear-gradient(135deg,#071a2f,#123a5a);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+color:white;
+}
+
+.card{
+background:rgba(255,255,255,0.08);
+padding:25px;
+border-radius:20px;
+backdrop-filter:blur(10px);
+text-align:center;
+width:280px;
+}
+
+input,button{
+width:100%;
+padding:10px;
+margin-top:10px;
+border:none;
+border-radius:10px;
+}
+
+button{
+background:#4da3ff;
+color:white;
+}
+
+#main{
+display:none;
+flex-direction:column;
+gap:12px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div id="login" class="card">
+<h2>Our Memories</h2>
+<p>Enter Password</p>
+<input type="password" id="pass">
+<button onclick="check()">Unlock</button>
+</div>
+
+<div id="main" class="card">
+<h3>📷 Memories</h3>
+<h3>🎥 Videos</h3>
+<h3>🎵 Playlist</h3>
+<h3>💌 Letters</h3>
+<h3>📝 Updates</h3>
+<h3>⚙️ Settings</h3>
+</div>
+
+<script>
+function check(){
+let p = document.getElementById("pass").value;
+
+if(p === "pishi"){
+document.getElementById("login").style.display="none";
+document.getElementById("main").style.display="flex";
+}else{
+alert("Wrong password");
+}
+}
+</script>
+
+</body>
+  </html>
