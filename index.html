@@ -8,54 +8,40 @@
 body{
 margin:0;
 font-family:Arial;
-background:linear-gradient(135deg,#071a2f,#123a5a);
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
+background:linear-gradient(135deg,#0b1b2b,#1b3b5c);
 color:white;
+padding:20px;
+}
+
+h1{
+text-align:center;
+margin-bottom:20px;
+}
+
+.gallery{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
 }
 
 .card{
 background:rgba(255,255,255,0.08);
-padding:20px;
-border-radius:20px;
+border-radius:15px;
+overflow:hidden;
+padding:10px;
 backdrop-filter:blur(10px);
-text-align:center;
-width:340px;
 }
 
-input,button,textarea{
+.card img, .card video{
 width:100%;
-padding:10px;
-margin-top:8px;
-border:none;
 border-radius:10px;
-font-size:14px;
 }
 
-button{
-background:#4da3ff;
-color:white;
-cursor:pointer;
-}
-
-button:hover{background:#2f8cff;}
-
-#main{display:none;flex-direction:column;gap:10px;}
-
-#content{
-margin-top:10px;
-background:rgba(0,0,0,0.25);
-padding:10px;
-border-radius:10px;
-min-height:150px;
-}
-
-img,video,audio{
-width:100%;
-margin-top:10px;
-border-radius:10px;
+.note{
+margin-top:20px;
+padding:15px;
+background:rgba(255,255,255,0.08);
+border-radius:15px;
 }
 </style>
 
@@ -63,116 +49,36 @@ border-radius:10px;
 
 <body>
 
-<!-- LOGIN -->
-<div id="login" class="card">
-<h2>Our Memories ❤️</h2>
-<input type="password" id="pass" placeholder="Enter password">
-<button onclick="login()">Enter</button>
+<h1>💖 Our Memory Collection</h1>
+
+<div class="gallery">
+
+<div class="card">
+<img src="https://picsum.photos/300/200?1">
+<p>📷 Memory 1</p>
 </div>
 
-<!-- MAIN -->
-<div id="main" class="card">
+<div class="card">
+<img src="https://picsum.photos/300/200?2">
+<p>📷 Memory 2</p>
+</div>
 
-<h3>Welcome ✨</h3>
+<div class="card">
+<video controls src="https://www.w3schools.com/html/mov_bbb.mp4"></video>
+<p>🎥 Video Memory</p>
+</div>
 
-<button onclick="openSection('memories')">📷 Memories</button>
-<button onclick="openSection('videos')">🎥 Videos</button>
-<button onclick="openSection('music')">🎵 Music</button>
-<button onclick="openSection('letters')">💌 Letters</button>
-
-<div id="content">Select a section</div>
+<div class="card">
+<img src="https://picsum.photos/300/200?3">
+<p>📷 Memory 3</p>
+</div>
 
 </div>
 
-<script>
-
-function login(){
-let p = document.getElementById("pass").value;
-
-if(p === "My pishi"){
-document.getElementById("login").style.display="none";
-document.getElementById("main").style.display="flex";
-}else{
-alert("Wrong password");
-}
-}
-
-/* -------- STORAGE -------- */
-function saveLetter(){
-let text = document.getElementById("letterText").value;
-localStorage.setItem("letter", text);
-alert("Saved ❤️");
-}
-
-function loadLetter(){
-return localStorage.getItem("letter") || "";
-}
-
-/* -------- SECTIONS -------- */
-function openSection(name){
-let c = document.getElementById("content");
-
-if(name==="memories"){
-c.innerHTML=`
-<h4>📷 Memories</h4>
-
-<input type="file" accept="image/*" onchange="previewImage(event)">
-<div id="imgBox"></div>
-`;
-
-let saved = localStorage.getItem("img");
-if(saved){
-document.getElementById("imgBox").innerHTML =
-`<img src="${saved}">`;
-}
-}
-
-if(name==="videos"){
-c.innerHTML=`
-<h4>🎥 Video</h4>
-<iframe width="100%" height="180"
-src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-frameborder="0"></iframe>
-`;
-}
-
-if(name==="music"){
-c.innerHTML=`
-<h4>🎵 Music</h4>
-<audio controls>
-<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
-</audio>
-`;
-}
-
-if(name==="letters"){
-c.innerHTML=`
-<h4>💌 Letters</h4>
-
-<textarea id="letterText" placeholder="Write your message..."></textarea>
-<button onclick="saveLetter()">Save</button>
-
-<p style="margin-top:10px;">Saved message:</p>
-<div>${loadLetter()}</div>
-`;
-}
-}
-
-/* -------- IMAGE UPLOAD -------- */
-function previewImage(event){
-let file = event.target.files[0];
-let reader = new FileReader();
-
-reader.onload = function(){
-localStorage.setItem("img", reader.result);
-document.getElementById("imgBox").innerHTML =
-`<img src="${reader.result}">`;
-}
-
-reader.readAsDataURL(file);
-}
-
-</script>
+<div class="note">
+💌 This is our private collection of memories.  
+You can replace these with your real photos and videos ❤️
+</div>
 
 </body>
 </html>
