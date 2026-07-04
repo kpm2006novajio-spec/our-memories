@@ -5,287 +5,134 @@
 <title>Our Little World</title>
 
 <style>
-body{
-margin:0;
-font-family:Arial;
-height:100vh;
-overflow:hidden;
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Quicksand', sans-serif;
+    background: url('background.jpg') center/cover no-repeat;
+    color: white;
 }
 
-/* BACKGROUND */
-.bg{
-position:fixed;
-width:100%;
-height:100%;
-background:url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee") center/cover;
-filter:brightness(0.7);
+/* ===== LOGIN SCREEN ===== */
+#loginPage {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(10px);
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999;
 }
 
-/* LOGIN */
-.login{
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-background:rgba(0,0,0,0.5);
-padding:25px;
-border-radius:20px;
-text-align:center;
-color:white;
-backdrop-filter:blur(10px);
-width:300px;
+.loginBox {
+    background: rgba(255,255,255,0.15);
+    padding: 25px;
+    border-radius: 20px;
+    text-align: center;
+    width: 300px;
 }
 
-input,button{
-width:100%;
-padding:10px;
-margin-top:10px;
-border:none;
-border-radius:10px;
+input {
+    width: 90%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 10px;
 }
 
-button{
-background:#ff7aa2;
-color:white;
-cursor:pointer;
+button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background: pink;
+    cursor: pointer;
 }
 
-/* APP */
-.app{
-display:none;
-height:100vh;
-display:flex;
+/* ===== MAIN PAGE ===== */
+#mainContent {
+    display: none;
+    padding: 20px;
 }
 
-/* SIDEBAR */
-.sidebar{
-width:220px;
-background:rgba(15,15,25,0.9);
-color:white;
-padding:15px;
-display:flex;
-flex-direction:column;
-gap:10px;
+.sidebar {
+    width: 200px;
+    background: rgba(0,0,0,0.4);
+    padding: 15px;
+    border-radius: 15px;
+    float: left;
 }
 
-.cat{
-font-size:40px;
-text-align:center;
-margin-bottom:10px;
+.card {
+    background: rgba(255,255,255,0.1);
+    padding: 15px;
+    border-radius: 15px;
+    margin: 10px;
 }
 
-.menu button{
-background:none;
-border:none;
-color:white;
-text-align:left;
-padding:10px;
-cursor:pointer;
-border-radius:10px;
-}
-
-.menu button:hover{
-background:rgba(255,255,255,0.1);
-}
-
-/* CONTENT */
-.content{
-flex:1;
-padding:20px;
-color:white;
-overflow:auto;
-}
-
-.card{
-background:rgba(0,0,0,0.5);
-padding:15px;
-border-radius:15px;
-margin-bottom:10px;
-}
-
-input,textarea{
-width:100%;
-padding:10px;
-margin-top:8px;
-border-radius:10px;
-border:none;
-}
-
-img,video{
-width:100%;
-border-radius:10px;
-margin-top:10px;
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-left: 220px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="bg"></div>
-
 <!-- LOGIN -->
-<div class="login" id="loginBox">
-<h2>🐱 Our Little World</h2>
-<input id="pass" type="password" placeholder="Enter password">
-<button onclick="login()">Enter</button>
+<div id="loginPage">
+    <div class="loginBox">
+        <h2>🔒 Enter Password</h2>
+        <input type="password" id="pass" placeholder="Password">
+        <button onclick="checkPass()">Enter 💗</button>
+    </div>
 </div>
 
-<!-- APP -->
-<div class="app" id="app">
+<!-- MAIN SITE -->
+<div id="mainContent">
 
-<!-- SIDEBAR -->
-<div class="sidebar">
-<div class="cat">🐱</div>
+    <div class="sidebar">
+        <h3>Our Little World 💗</h3>
+        <p>Home</p>
+        <p>Photos</p>
+        <p>Videos</p>
+        <p>Messages</p>
+        <p>Memories</p>
+    </div>
 
-<div class="menu">
-<button onclick="openTab('home')">🏠 Home</button>
-<button onclick="openTab('photos')">📷 Photos</button>
-<button onclick="openTab('videos')">🎥 Videos</button>
-<button onclick="openTab('messages')">💌 Messages</button>
-</div>
-</div>
+    <div class="grid">
 
-<!-- CONTENT -->
-<div class="content" id="content">
-</div>
+        <div class="card">🌸 Welcome to your space</div>
+        <div class="card">💗 Recent Memory</div>
+        <div class="card">🎵 Music</div>
+
+        <div class="card">📸 Photo section</div>
+        <div class="card">🎥 Video section</div>
+        <div class="card">📅 Calendar</div>
+
+    </div>
 
 </div>
 
 <script>
+function checkPass(){
+    let password = document.getElementById("pass").value;
 
-/* LOGIN */
-function login(){
-let p=document.getElementById("pass").value;
-
-if(p==="My pishi"){
-document.getElementById("loginBox").style.display="none";
-document.getElementById("app").style.display="flex";
-openTab("home");
-}else{
-alert("Wrong password");
+    // 🔑 پسورد رو اینجا تغییر بده
+    if(password === "1234"){
+        document.getElementById("loginPage").style.display = "none";
+        document.getElementById("mainContent").style.display = "block";
+    } else {
+        alert("Wrong password 💔");
+    }
 }
-}
-
-/* NAV */
-function openTab(tab){
-let c=document.getElementById("content");
-
-/* LOAD SAVED DATA */
-let photos = JSON.parse(localStorage.getItem("photos")||"[]");
-let messages = JSON.parse(localStorage.getItem("messages")||"[]");
-
-if(tab==="home"){
-c.innerHTML=`
-<div class="card">
-<h2>💖 Welcome</h2>
-<p>Your memories are safe here</p>
-</div>
-`;
-}
-
-if(tab==="photos"){
-c.innerHTML=`
-<div class="card">
-<h3>📷 Add Photo</h3>
-<input type="file" onchange="addPhoto(event)">
-</div>
-
-<div id="photoList"></div>
-`;
-
-renderPhotos();
-}
-
-if(tab==="videos"){
-c.innerHTML=`
-<div class="card">
-<h3>🎥 Video Link</h3>
-<input id="videoUrl" placeholder="Paste video URL">
-<button onclick="addVideo()">Add</button>
-</div>
-
-<div id="videoList"></div>
-`;
-
-renderVideos();
-}
-
-if(tab==="messages"){
-c.innerHTML=`
-<div class="card">
-<h3>💌 Message</h3>
-<textarea id="msg"></textarea>
-<button onclick="addMessage()">Save</button>
-</div>
-
-<div id="msgList"></div>
-`;
-
-renderMessages();
-}
-}
-
-/* PHOTOS */
-function addPhoto(e){
-let file=e.target.files[0];
-let reader=new FileReader();
-
-reader.onload=function(){
-let photos=JSON.parse(localStorage.getItem("photos")||"[]");
-photos.push(reader.result);
-localStorage.setItem("photos",JSON.stringify(photos));
-openTab("photos");
-};
-
-reader.readAsDataURL(file);
-}
-
-function renderPhotos(){
-let photos=JSON.parse(localStorage.getItem("photos")||"[]");
-let html="";
-photos.forEach(p=>{
-html+=`<div class="card"><img src="${p}"></div>`;
-});
-document.getElementById("photoList").innerHTML=html;
-}
-
-/* VIDEOS */
-function addVideo(){
-let url=document.getElementById("videoUrl").value;
-let videos=JSON.parse(localStorage.getItem("videos")||"[]");
-videos.push(url);
-localStorage.setItem("videos",JSON.stringify(videos));
-openTab("videos");
-}
-
-function renderVideos(){
-let videos=JSON.parse(localStorage.getItem("videos")||"[]");
-let html="";
-videos.forEach(v=>{
-html+=`<div class="card"><iframe width="100%" height="200" src="${v.replace('watch?v=','embed/')}" frameborder="0"></iframe></div>`;
-});
-document.getElementById("videoList").innerHTML=html;
-}
-
-/* MESSAGES */
-function addMessage(){
-let m=document.getElementById("msg").value;
-let messages=JSON.parse(localStorage.getItem("messages")||"[]");
-messages.push(m);
-localStorage.setItem("messages",JSON.stringify(messages));
-openTab("messages");
-}
-
-function renderMessages(){
-let messages=JSON.parse(localStorage.getItem("messages")||"[]");
-let html="";
-messages.forEach(m=>{
-html+=`<div class="card">💌 ${m}</div>`;
-});
-document.getElementById("msgList").innerHTML=html;
-}
-
 </script>
 
 </body>
-</html>
+  </html>
